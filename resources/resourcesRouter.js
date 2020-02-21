@@ -3,7 +3,7 @@ const Resources = require("./resourcesDB.js")
 const router = express.Router()
 
 router.get('/', (req,res) => {
-    Resources.getResources()
+    Resources.getAllResources()
         .then(resources => {
             res.status(200).json(resources)
         })

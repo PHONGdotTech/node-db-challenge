@@ -1,5 +1,7 @@
 const express = require("express");
 const Projects = require("./projectsDB.js")
+const Tasks = require("../tasks/tasksDB.js")
+const Resources = require("../resources/resourcesDB.js")
 const router = express.Router()
 
 router.get('/', (req,res) => {
@@ -9,6 +11,26 @@ router.get('/', (req,res) => {
         })
         .catch(err => {
             res.status(500).json({error: "Could not get projects."})
+        })
+})
+
+router.get('/:id', (req,res) => {
+    Projects.getProject(req.params.id)
+        .then(project => {
+            Tasks.getTasks(req.params.id)
+                .then(tasks => {
+                    Resources.getResources(req.params.id)
+                        .then(resources => {
+                            res.status(200).json({
+                                ...project,
+                                tasks: tasks,
+                                resources: resources
+                            })
+                        })
+                })
+        })
+        .catch(err => {
+            res.status(500).json({error: "Could not get that project."})
         })
 })
 
