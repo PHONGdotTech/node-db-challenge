@@ -8,8 +8,8 @@ module.exports = {
 
 function getLiterallyAllTasks(){
     return db('Tasks')
-        .join('Projects', 'Projects.id', 'Tasks.project_id')
-        .select('Tasks.id','Tasks.description','Tasks.notes','Tasks.completed','Tasks.project_id','Projects.name','Projects.description')
+        .join('Projects', 'Tasks.project_id','=','Projects.id' )
+        .select('Tasks.id as task_id','Tasks.description as task_description','Tasks.notes','Tasks.completed','Tasks.project_id','Projects.name as project_name','Projects.description as project_description')
 }
 
 function getTasks(id){
