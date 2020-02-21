@@ -7,7 +7,10 @@ module.exports = {
     connection: {
       filename: './data/projects.db3'
     },
-    useNullAsDefault: true
+    useNullAsDefault: true,
+    pool: {
+      afterCreate: (conn, cb) => conn.run('PRAGMA foreign_keys = ON', cb)
+    }
   },
 
   staging: {
