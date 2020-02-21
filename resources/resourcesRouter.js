@@ -1,33 +1,32 @@
 const express = require("express");
-const Projects = require("./projectsDB.js")
+const Resources = require("./resourcesDB.js")
 const router = express.Router()
 
 router.get('/', (req,res) => {
-    Projects.getProjects()
-        .then(projects => {
-            res.status(200).json(projects)
+    Resources.getResources()
+        .then(resources => {
+            res.status(200).json(resources)
         })
         .catch(err => {
-            res.status(500).json({error: "Could not get projects."})
+            res.status(500).json({error: "Could not get resources."})
         })
 })
 
 router.post('/', (req,res) => {
-    Projects.addProject(req.body)
+    Resources.addResource(req.body)
         .then(id => {
             res.status(201).json({
-                message: "Successfully added a new project.",
-                newProject: {
+                message: "Successfully added a new resource.",
+                newResource: {
                     id: id[0],
                     name: "",
                     description: null,
-                    completed: false,
                      ...req.body
                     }
             })
         })
         .catch(err => {
-            res.status(500).json({error: "Could not add project."})
+            res.status(500).json({error: "Could not add resource."})
         })
 })
 
