@@ -20,7 +20,9 @@
   "homepage": "https://github.com/PHONGdotTech/node-db-challenge#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "helmet": "^3.21.2",
     "knex": "^0.20.10",
+    "knex-cleaner": "^1.3.0",
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
