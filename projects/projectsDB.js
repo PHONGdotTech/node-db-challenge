@@ -3,7 +3,9 @@ const db = require('../data/dbConfig.js');
 module.exports = {
     getProjects,
     getProject,
-    addProject
+    addProject,
+    updateProject,
+    deleteProject
 }
 
 function getProjects(){
@@ -16,4 +18,12 @@ function getProject(id){
 
 function addProject(newProject){
     return db('Projects').insert(newProject, "id")
+}
+
+function updateProject(updatedProject, id){
+    return db('Projects').where('Projects.id',id).update(updatedProject)
+}
+
+function deleteProject(id){
+    return db('Projects').where('Projects.id',id).delete(id)
 }

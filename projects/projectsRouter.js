@@ -53,4 +53,38 @@ router.post('/', (req,res) => {
         })
 })
 
+router.put('/:id', (req,res) => {
+    Projects.updateProject(req.body, req.params.id)
+        .then(updatedCount => {
+            Projects.getProject(req.params.id)
+                .then(project => {
+                    res.status(200).json({
+                        message: "Successfully updated.",
+                        newlyUpdatedProject: project
+                    })
+                })
+        })
+        .catch(err => {
+            res.status(500).json({error: "Could not update project."})
+        })
+})
+
+router.delete('/:id', (req,res) => {
+    Projects.deleteProject(req.params.id)
+        .then(deleteCount => {
+            Projects.getProject(req.params.id)
+                .then(project => {
+                    res.status(200).json({
+                        message: `Successfully deleted project: ${project.name}.`
+                    })
+                })
+                .catch(err => {
+                    res.status(500).json({error: "Could not get project to delete."})
+                })
+        })
+        .catch(err => {
+            res.status(500).json({error: "Could not delete project."})
+        })
+})
+
 module.exports = router;
